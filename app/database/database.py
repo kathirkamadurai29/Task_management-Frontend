@@ -7,7 +7,8 @@ try:
 except ImportError:
     pass
 
-DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
+DEFAULT_DB_URL = "postgresql://neondb_owner:npg_EJbPkTBz4h5d@ep-cold-block-b3icud1i-pooler.c-4.ap-southeast-1.aws.neon.tech/neondb?sslmode=require"
+DATABASE_URL = os.environ.get("DATABASE_URL", "").strip() or DEFAULT_DB_URL
 
 # Fix driver prefix if needed
 if DATABASE_URL.startswith("postgres://"):
@@ -17,9 +18,7 @@ elif DATABASE_URL.startswith("postgresql://") and "+psycopg2" not in DATABASE_UR
 
 engine = create_engine(
     DATABASE_URL,
-    pool_pre_ping=False,
-    pool_size=1,
-    max_overflow=0,
+    pool_pre_ping=True,
     connect_args={"connect_timeout": 10}
 )
 
