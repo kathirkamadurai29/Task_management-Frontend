@@ -34,8 +34,9 @@ export const setToken = (token) => {
  * Universal Request Handler
  */
 export async function apiRequest(endpoint, options = {}) {
-  const baseUrl = getBaseUrl();
-  const url = `${baseUrl}${endpoint.startsWith('/') ? '' : '/'}${endpoint}`;
+  const baseUrl = getBaseUrl().trim();
+  const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const url = baseUrl ? `${baseUrl}${cleanEndpoint}` : cleanEndpoint;
   
   const headers = new Headers(options.headers || {});
   
