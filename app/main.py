@@ -22,6 +22,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Auto-create tables if they do not exist
+try:
+    from app.database.database import engine, Base
+    import app.models.user
+    import app.models.task
+    Base.metadata.create_all(bind=engine)
+except Exception as e:
+    print("Table creation check:", e)
+
 app.include_router(users_router)
 app.include_router(auth_router)
 app.include_router(task_router)
