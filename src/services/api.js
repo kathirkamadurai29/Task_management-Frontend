@@ -5,11 +5,13 @@
 const DEFAULT_BASE_URL = 'http://127.0.0.1:8000';
 
 export const getBaseUrl = () => {
-  return (
-    localStorage.getItem('taskflow_api_url') ||
-    import.meta.env.VITE_API_BASE_URL ||
-    DEFAULT_BASE_URL
-  );
+  const custom = localStorage.getItem('taskflow_api_url');
+  if (custom !== null && custom !== undefined && custom !== '') return custom;
+  if (import.meta.env.VITE_API_BASE_URL !== undefined) return import.meta.env.VITE_API_BASE_URL;
+  // In production (Vercel deployment), use same-domain relative URLs
+  if (import.meta.env.PROD) return '';
+  // In local development, default to local FastAPI server
+  return 'http://127.0.0.1:8000';
 };
 
 export const setBaseUrl = (url) => {

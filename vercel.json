@@ -1,20 +1,28 @@
 {
   "rewrites": [
     {
-      "source": "/auth/:match*",
-      "destination": "https://taskflow-api.onrender.com/auth/:match*"
+      "source": "/auth/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "source": "/tasks/:match*",
-      "destination": "https://taskflow-api.onrender.com/tasks/:match*"
+      "source": "/tasks/(.*)",
+      "destination": "/api/index.py"
     },
     {
-      "source": "/dashboard/:match*",
-      "destination": "https://taskflow-api.onrender.com/dashboard/:match*"
+      "source": "/tasks",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/dashboard/(.*)",
+      "destination": "/api/index.py"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "/api/index.py"
     },
     {
       "source": "/health",
-      "destination": "https://taskflow-api.onrender.com/health"
+      "destination": "/api/index.py"
     },
     {
       "source": "/(.*)",
